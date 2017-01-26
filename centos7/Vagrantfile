@@ -1,0 +1,80 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrant file to start up to 10 Centos 6.8 VMs for installing Apache Hadoop.
+# Copies code from https://github.com/u39kun/ambari-vagrant.
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # All Vagrant configuration is done here. The most common configuration
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = "centos7.0"
+
+  # The url from where the 'config.vm.box' box will be fetched if it
+  # doesn't already exist on the user's system.
+  # CentOS 7.0 x86_64
+  config.vm.box_url = "http://cloud.terry.im/vagrant/oraclelinux-7-x86_64.box"
+
+  # Fixes changes from https://github.com/mitchellh/vagrant/pull/4707
+  config.ssh.insert_key = false
+
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", 2048] # RAM allocated to each VM
+    # vb.gui = true
+  end
+
+  config.vm.provision :shell, :path => "bootstrap.sh"
+
+  config.vm.define :n001 do |n001|
+    n001.vm.hostname = "n001.hdfs.example.com"
+    n001.vm.network :private_network, ip: "192.168.7.201"
+  end
+
+  config.vm.define :n002 do |n002|
+    n002.vm.hostname = "n002.hdfs.example.com"
+    n002.vm.network :private_network, ip: "192.168.7.202"
+  end
+
+  config.vm.define :n003 do |n003|
+    n003.vm.hostname = "n003.hdfs.example.com"
+    n003.vm.network :private_network, ip: "192.168.7.203"
+  end
+
+  config.vm.define :n004 do |n004|
+    n004.vm.hostname = "n004.hdfs.example.com"
+    n004.vm.network :private_network, ip: "192.168.7.204"
+  end
+
+  config.vm.define :n005 do |n005|
+    n005.vm.hostname = "n005.hdfs.example.com"
+    n005.vm.network :private_network, ip: "192.168.7.205"
+  end
+
+  config.vm.define :n006 do |n006|
+    n006.vm.hostname = "n006.hdfs.example.com"
+    n006.vm.network :private_network, ip: "192.168.7.206"
+  end
+
+  config.vm.define :n007 do |n007|
+    n007.vm.hostname = "n007.hdfs.example.com"
+    n007.vm.network :private_network, ip: "192.168.7.207"
+  end
+
+  config.vm.define :n008 do |n008|
+    n008.vm.hostname = "n008.hdfs.example.com"
+    n008.vm.network :private_network, ip: "192.168.7.208"
+  end
+
+  config.vm.define :n009 do |n009|
+    n009.vm.hostname = "n009.hdfs.example.com"
+    n009.vm.network :private_network, ip: "192.168.7.209"
+  end
+
+  config.vm.define :n010 do |n010|
+    n010.vm.hostname = "n010.hdfs.example.com"
+    n010.vm.network :private_network, ip: "192.168.7.210"
+  end
+end
+
