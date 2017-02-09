@@ -40,3 +40,7 @@ sudo service network restart
 yum -y install openssl openssl-devel
 yum install -y /vagrant/jdk-8u112-linux-x64.rpm
 
+# Create a couple of directories for Apache Hadoop.
+#
+mkdir -p /data/disk1 /data/disk2
+
