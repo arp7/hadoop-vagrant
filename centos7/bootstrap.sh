@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Bootstrap a Centos 6.8 VM for installing Apache Hadoop.
+# Bootstrap a Centos 7 VM for installing Apache Hadoop.
 # Borrows code from https://github.com/u39kun/ambari-vagrant.
 #
 
@@ -38,7 +38,7 @@ sudo service network restart
 # Install Oracle JDK 8.
 #
 yum -y install openssl openssl-devel
-yum install -y /vagrant/jdk-8u112-linux-x64.rpm
+yum install -y /vagrant/jdk-8u121-linux-x64.rpm
 
 # Create a couple of directories for Apache Hadoop.
 #

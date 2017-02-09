@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Vagrant file to start up to 10 Centos 6.8 VMs for installing Apache Hadoop.
+# Vagrant file to start up to 10 Centos 7 VMs for installing Apache Hadoop.
 # Copies code from https://github.com/u39kun/ambari-vagrant.
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
