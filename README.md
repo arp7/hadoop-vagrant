@@ -1,17 +1,27 @@
 ## Introduction
-Vagrantfile and bootstrap script to spin up to 10 VirtualBox VMs with JDK 8 installed for testing Apache Hadoop.
+Vagrant scripts to launch VirtualBox VMs for testing [Apache Hadoop](http://hadoop.apache.org/) or [HDP](https://hortonworks.com/products/data-center/hdp/).
 
 ## Usage
 ```
 cd centos7
-./up.sh <num-vms>
+./up.sh <num-vms> <Ambari-Repo-URL>
 vagrant ssh n001
 ```
 
-The VM names will be n001, n002 etc.
+The VM names will be n001, n002 etc. The Ambari repo URL is optional. If specified, then Ambari Server will be installed on host n001.
 
 You may find it useful to add the following entries to the hosts file on the host machine so the VMs are resolvable.
 
+## Customization
+Each VM gets 3GB of memory which is enough to start HDFS and YARN daemons. Edit `centos7/Vagrantfile` to change the RAM allocation.
+```
+config.vm.provider :virtualbox do |vb|
+  vb.customize ["modifyvm", :id, "--memory", 2048] # RAM allocated to each VM
+  # vb.gui = true
+end
+```
+
+## Optional Host Setup
 ```
 # Vagrant-based VMs for testing Apache Hadoop.
 #
@@ -31,15 +41,6 @@ Additionally you can run the following command to enable password-less ssh acces
 ```
 cp centos7/ssh-files/id_rsa* ~/.ssh/
 chmod 600 ~/.ssh/id_rsa*
-```
-
-## Customization
-Each VM gets 2GB of memory which is enough to start HDFS and YARN daemons. Edit `centos7/Vagrantfile` to change the RAM allocation.
-```
-config.vm.provider :virtualbox do |vb|
-  vb.customize ["modifyvm", :id, "--memory", 2048] # RAM allocated to each VM
-  # vb.gui = true
-end
 ```
 
 ## Acknowledgements

@@ -1,0 +1,15 @@
+{
+  "blueprint" : "bp1",
+  "default_password" : "default",
+  "config_recommendation_strategy" : "ONLY_STACK_DEFAULTS_APPLY",
+  "host_groups" :[
+    {
+      "name" : "host_group_1",
+      "hosts" : [
+        {
+          "fqdn" : "n001.hdfs.example.com"
+        }
+      ]
+    }
+  ]
+}
