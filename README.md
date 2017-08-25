@@ -10,8 +10,6 @@ vagrant ssh n001
 
 The VM names will be n001, n002 etc. The Ambari repo URL is optional. If specified, then Ambari Server will be installed on host n001.
 
-You may find it useful to add the following entries to the hosts file on the host machine so the VMs are resolvable.
-
 ## Customization
 Each VM gets 3GB of memory which is enough to start HDFS and YARN daemons. Edit `centos7/Vagrantfile` to change the RAM allocation.
 ```
@@ -22,6 +20,8 @@ end
 ```
 
 ## Optional Host Setup
+You may find it useful to add the following entries to the hosts file on the host machine so the VMs are resolvable.
+
 ```
 # Vagrant-based VMs for testing Apache Hadoop.
 #
