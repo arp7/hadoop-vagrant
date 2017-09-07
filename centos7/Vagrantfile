@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.insert_key = false
 
   config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--memory", 6500] # RAM allocated to each VM
+    vb.customize ["modifyvm", :id, "--memory", 2048] # RAM allocated to each VM
     # vb.gui = true
   end
 
