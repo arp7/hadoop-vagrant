@@ -10,6 +10,7 @@ set -euo pipefail
 yum install -y krb5-server krb5-libs krb5-auth-dialog rng-tools
 rngd -r /dev/urandom -o /dev/random
 /usr/sbin/kdb5_util create -s -r EXAMPLE.COM -P admin
+kadmin.local add_principal -pw admin admin/admin@EXAMPLE.COM
 
 # Update /etc/krb5.conf
 #
