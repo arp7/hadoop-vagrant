@@ -12,6 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "arp7/centos7-hadoop"
 
+  # Don't generate a random ssh key for the vagrant user
   # Fixes changes from https://github.com/mitchellh/vagrant/pull/4707
   config.ssh.insert_key = false
 
@@ -24,62 +25,62 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define :n001 do |n001|
     n001.vm.hostname = "n001.hdfs.example.com"
-    n001.vm.network :private_network, ip: "192.168.7.201"
+    n001.vm.network :private_network, ip: "192.168.7.201", netmask: "255.255.255.0"
     n001.vm.provision :shell, :path => "provisioning/install-ambari.sh", :env => { :AMBARI_REPO_URL => ENV['AMBARI_REPO_URL'] }
     n001.vm.provision :shell, :path => "provisioning/kerberos-kdc-reqs.sh"
   end
 
   config.vm.define :n002 do |n002|
     n002.vm.hostname = "n002.hdfs.example.com"
-    n002.vm.network :private_network, ip: "192.168.7.202"
+    n002.vm.network :private_network, ip: "192.168.7.202", netmask: "255.255.255.0"
     n002.vm.provision :shell, :path => "provisioning/copy-krb5-conf.sh"
   end
 
   config.vm.define :n003 do |n003|
     n003.vm.hostname = "n003.hdfs.example.com"
-    n003.vm.network :private_network, ip: "192.168.7.203"
+    n003.vm.network :private_network, ip: "192.168.7.203", netmask: "255.255.255.0"
     n003.vm.provision :shell, :path => "provisioning/copy-krb5-conf.sh"
   end
 
   config.vm.define :n004 do |n004|
     n004.vm.hostname = "n004.hdfs.example.com"
-    n004.vm.network :private_network, ip: "192.168.7.204"
+    n004.vm.network :private_network, ip: "192.168.7.204", netmask: "255.255.255.0"
     n004.vm.provision :shell, :path => "provisioning/copy-krb5-conf.sh"
   end
 
   config.vm.define :n005 do |n005|
     n005.vm.hostname = "n005.hdfs.example.com"
-    n005.vm.network :private_network, ip: "192.168.7.205"
+    n005.vm.network :private_network, ip: "192.168.7.205", netmask: "255.255.255.0"
     n005.vm.provision :shell, :path => "provisioning/copy-krb5-conf.sh"
   end
 
   config.vm.define :n006 do |n006|
     n006.vm.hostname = "n006.hdfs.example.com"
-    n006.vm.network :private_network, ip: "192.168.7.206"
+    n006.vm.network :private_network, ip: "192.168.7.206", netmask: "255.255.255.0"
     n006.vm.provision :shell, :path => "provisioning/copy-krb5-conf.sh"
   end
 
   config.vm.define :n007 do |n007|
     n007.vm.hostname = "n007.hdfs.example.com"
-    n007.vm.network :private_network, ip: "192.168.7.207"
+    n007.vm.network :private_network, ip: "192.168.7.207", netmask: "255.255.255.0"
     n007.vm.provision :shell, :path => "provisioning/copy-krb5-conf.sh"
   end
 
   config.vm.define :n008 do |n008|
     n008.vm.hostname = "n008.hdfs.example.com"
-    n008.vm.network :private_network, ip: "192.168.7.208"
+    n008.vm.network :private_network, ip: "192.168.7.208", netmask: "255.255.255.0"
     n008.vm.provision :shell, :path => "provisioning/copy-krb5-conf.sh"
   end
 
   config.vm.define :n009 do |n009|
     n009.vm.hostname = "n009.hdfs.example.com"
-    n009.vm.network :private_network, ip: "192.168.7.209"
+    n009.vm.network :private_network, ip: "192.168.7.209", netmask: "255.255.255.0"
     n009.vm.provision :shell, :path => "provisioning/copy-krb5-conf.sh"
   end
 
   config.vm.define :n010 do |n010|
     n010.vm.hostname = "n010.hdfs.example.com"
-    n010.vm.network :private_network, ip: "192.168.7.210"
+    n010.vm.network :private_network, ip: "192.168.7.210", netmask: "255.255.255.0"
     n010.vm.provision :shell, :path => "provisioning/copy-krb5-conf.sh"
   end
 end

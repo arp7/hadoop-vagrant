@@ -9,6 +9,7 @@
 cp /vagrant/dns-files/hosts /etc/hosts
 cp /vagrant/dns-files/resolv.conf /etc/resolv.conf
 
+echo "http_caching=packages" >> /etc/yum.conf
 yum install -y ntp
 service ntpd start
 service iptables stop
@@ -31,4 +32,14 @@ sudo service network restart
 # Create a couple of directories for Apache Hadoop.
 #
 mkdir -p /data/disk1 /data/disk2
+
+# Install the Kerberos client on all machines
+#
+yum install -y krb5-libs krb5-auth-dialog rng-tools krb5-workstation
+
+# Allow password-less ssh to root for Apache Hadoop/Ambari installs.
+#
+mkdir -p ~/.ssh && chmod 600 ~/.ssh
+cp /vagrant/ssh-files/* ~/.ssh
+chown -R root ~/.ssh 
 

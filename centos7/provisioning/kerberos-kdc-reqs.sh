@@ -7,7 +7,7 @@ set -euo pipefail
 
 # Install packages and create the database.
 #
-yum install -y krb5-server krb5-libs krb5-auth-dialog rng-tools
+yum install -y krb5-server krb5-libs rng-tools krb5-workstation
 rngd -r /dev/urandom -o /dev/random
 /usr/sbin/kdb5_util create -s -r EXAMPLE.COM -P admin
 kadmin.local add_principal -pw admin admin/admin@EXAMPLE.COM

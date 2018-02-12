@@ -1,0 +1,6 @@
+# Hadoop Vagrant hosts---
+Host n00* n1*
+  User root
+  StrictHostKeyChecking no
+  UserKnownHostsFile=/dev/null
+  IdentityFile ~/.ssh/id_rsa
