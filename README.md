@@ -10,8 +10,10 @@ vagrant ssh n001
 
 The VM names will be n001, n002 etc. The Ambari repo URL is optional. If specified, then Ambari Server will be installed on host n001.
 
+*Note:* The VMs are setup for password-less ssh access using the insecure keyfiles found under centos7/ssh-files. Additionally, the vagrant user has password-less ssh enabled using the [Vagrant default insecure keyfiles](https://github.com/hashicorp/vagrant/tree/master/keys). If you care about security then you must replace these insecure keys.
+
 ## Customization
-Each VM gets 3GB of memory which is enough to start HDFS and YARN daemons. Edit `centos7/Vagrantfile` to change the RAM allocation.
+Each VM gets 2GB of memory which is enough to start HDFS and YARN daemons. Edit `centos7/Vagrantfile` to change the RAM allocation.
 ```
 config.vm.provider :virtualbox do |vb|
   vb.customize ["modifyvm", :id, "--memory", 2048] # RAM allocated to each VM
@@ -37,11 +39,6 @@ You may find it useful to add the following entries to the hosts file on the hos
 192.168.7.210    n010.hdfs.example.com n010
 ```
 
-Additionally you can run the following command to enable password-less ssh access from the host to the guests.
-```
-cp centos7/ssh-files/id_rsa* ~/.ssh/
-chmod 600 ~/.ssh/id_rsa*
-```
 
 ## Acknowledgements
 Based on https://github.com/u39kun/ambari-vagrant.
