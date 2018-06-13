@@ -7,9 +7,9 @@ set -euo pipefail
   installed on the first VM (n001.hdfs.example.com)." && exit
 
 
-JDK_BUILD=8u131-b11
+JDK_BUILD=8u171-b11
 JDK_RPM_FILE=jdk-$(echo $JDK_BUILD | sed 's/-.*$//')-linux-x64.rpm
-JDK_URL_HASH=d54c1d3a095b4ff2b6607d096fa80163
+JDK_URL_HASH=512cd62ec5174c3487ac17c61aaa89e8
 AMBARI_REPO=${2-}
 
 # Ensure the vagrant-vbguest plugin is installed.
