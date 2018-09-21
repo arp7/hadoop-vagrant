@@ -25,9 +25,14 @@ sudo mkswap /swapfile
 sudo swapon /swapfile
 echo "/swapfile       none    swap    sw      0       0" >> /etc/fstab
 
+# Install the JDK
+#
+all_jdk_rpms=(/vagrant/jdk-*.rpm)
+yum install -y "${all_jdk_rpms[0]}"
+
 # Workaround for missing network. https://github.com/mitchellh/vagrant/issues/8096
 #
-sudo service network restart
+service network restart
 
 # Create a couple of directories for Apache Hadoop.
 #

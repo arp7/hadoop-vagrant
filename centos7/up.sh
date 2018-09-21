@@ -6,10 +6,9 @@ set -euo pipefail
   Ambari-repo-url is optional. If it is provided, then Ambari Server will be
   installed on the first VM (n001.hdfs.example.com)." && exit
 
-
-JDK_BUILD=8u171-b11
+JDK_BUILD=8u181-b13
 JDK_RPM_FILE=jdk-$(echo $JDK_BUILD | sed 's/-.*$//')-linux-x64.rpm
-JDK_URL_HASH=512cd62ec5174c3487ac17c61aaa89e8
+JDK_URL_HASH=96a7b8442fe848ef90c96a2fad6ed6d1
 AMBARI_REPO=${2-}
 
 # Ensure the vagrant-vbguest plugin is installed.
