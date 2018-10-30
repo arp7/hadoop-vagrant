@@ -18,17 +18,15 @@ service iptables stop
 #
 /etc/init.d/iptables stop
 
-# Increasing swap space
+# Add some swap space.
 #
 sudo dd if=/dev/zero of=/swapfile bs=1024 count=1024k
 sudo mkswap /swapfile
 sudo swapon /swapfile
 echo "/swapfile       none    swap    sw      0       0" >> /etc/fstab
 
-# Install the JDK
-#
-all_jdk_rpms=(/vagrant/jdk-*.rpm)
-yum install -y "${all_jdk_rpms[0]}"
+echo "Intalling the JDK"
+yum install -y /vagrant/${OPENJDK_JDK_RPM} /vagrant/${OPENJDK_JRE_RPM}
 
 # Workaround for missing network. https://github.com/mitchellh/vagrant/issues/8096
 #
