@@ -2,25 +2,31 @@
 
 set -euo pipefail
 
-[[ -z "${1-}" ]] && echo "Usage: up.sh <num-vms-to-launch> <Ambari-repo-url>
-  Ambari-repo-url is optional. If it is provided, then Ambari Server will be
-  installed on the first VM (n001.hdfs.example.com)." && exit
+[[ -z "${1-}" ]] && echo "Usage: up.sh <num-vms-to-launch> [<JDK tarball file>] [<Ambari-repo-url>] 
 
-AMBARI_REPO=${2-}
-[[ -n ${AMBARI_REPO} ]] && echo "Installing Ambari Server from $AMBARI_REPO"
+  JDK tarball or RPM file is optional. If not provided, then OpenJDK8
+  will be installed.
 
-# Download OpenJDK RPMs if necessary.
-#
-OPENJDK_JDK_RPM=java-1.8.0-openjdk-devel-1.8.0.191.b12-0.el7_5.x86_64.rpm
-OPENJDK_JRE_RPM=java-1.8.0-openjdk-1.8.0.191.b12-0.el7_5.x86_64.rpm
+  Ambari-repo-url is optional. If it is provided, then Ambari Server
+  will be installed on the first VM (n001.hdfs.example.com)." && exit
+
+AMBARI_REPO=${3-}
+[[ -n ${AMBARI_REPO} ]] && echo "Will install Ambari from $AMBARI_REPO"
+
+DEFAULT_JDK_RPMS="java-1.8.0-openjdk-devel-1.8.0.191.b12-0.el7_5.x86_64.rpm"
 RPM_BASE_URL=http://mirror.centos.org/centos/7/updates/x86_64/Packages
+JDK_INSTALLER_FILES=${2-}
 
-if [ ! -f $OPENJDK_JDK_RPM ]; then
-  wget ${RPM_BASE_URL}/${OPENJDK_JDK_RPM}
-fi
-
-if [ ! -f ${OPENJDK_JRE_RPM} ]; then
-  wget ${RPM_BASE_URL}/${OPENJDK_JRE_RPM}
+# No JDK package provided on the command-line. Download the default.
+#
+if [[ -z "${JDK_INSTALLER_FILES}" ]]; then
+    echo "No JDK installer specified, I will use the default"
+    for f in ${DEFAULT_JDK_RPMS}; do
+        [[ ! -f "${f}" ]] && wget "${RPM_BASE_URL}/${f}"
+    done
+    JDK_INSTALLER_FILES="${DEFAULT_JDK_RPMS}"
+else
+    echo "I will install the JDK using ${JDK_INSTALLER_FILES}"    
 fi
 
 # Ensure the vagrant-vbguest plugin is installed.
@@ -31,12 +37,10 @@ vagrant plugin install vagrant-vbguest
 # Start the VMs, setting environment variables to locate JDK RPMs and
 # Ambari repo URL.
 #
-for i in $(seq -f '%03.3g' 1 $1);
-do
-  echo "Launching VM n${i}"
-  AMBARI_REPO_URL="${AMBARI_REPO}" \
-      OPENJDK_JDK_RPM="${OPENJDK_JDK_RPM}" \
-      OPENJDK_JRE_RPM="${OPENJDK_JRE_RPM}" \
-      vagrant up --provider virtualbox n${i}
+for i in $(seq -f '%03.3g' 1 $1); do
+    echo "Launching VM n${i}..."
+    JDK_INSTALLER_FILES="${JDK_INSTALLER_FILES}" \
+        AMBARI_REPO_URL="${AMBARI_REPO}" \
+        vagrant up --provider virtualbox n${i}
 done
 

@@ -4,11 +4,15 @@ Vagrant scripts to launch VirtualBox VMs for testing [Apache Hadoop](http://hado
 ## Usage
 ```
 cd centos7
-./up.sh <num-vms> <Ambari-Repo-URL>
+./up.sh <num-vms> [<jdk-installer-file>] [<Ambari-Repo-URL>]
 vagrant ssh n001
 ```
 
-The VM names will be n001, n002 etc. The Ambari repo URL is optional. If specified, then Ambari Server will be installed on host n001.
+The VM names will be n001, n002 etc.
+
+The JDK installer filename is optional. If absent then a default JDK will be installed (currently OpenJDK8). If present, then it must be an RPM or Tarball file in the current directory.
+
+The Ambari repo URL is optional. If specified, then Ambari Server will be installed on host n001.
 
 *Note:* The VMs are setup for password-less ssh access using the insecure keyfiles found under centos7/ssh-files. Additionally, the vagrant user has password-less ssh enabled using the [Vagrant default insecure keyfiles](https://github.com/hashicorp/vagrant/tree/master/keys). If you care about security then you must replace these insecure keys.
 

@@ -22,8 +22,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision :shell, :path => "provisioning/bootstrap.sh", :env => {
-    :OPENJDK_JDK_RPM => ENV['OPENJDK_JDK_RPM'],
-    :OPENJDK_JRE_RPM => ENV['OPENJDK_JRE_RPM']
+    :JDK_INSTALLER_FILES => ENV['JDK_INSTALLER_FILES']
   }
 
   config.vm.define :n001 do |n001|

@@ -1,3 +1,6 @@
 .vagrant/
-jdk*.rpm
 java*.rpm
+jdk*.rpm
+openjdk*.tar
+openjdk*.tar.gz
+openjdk*.tgz
