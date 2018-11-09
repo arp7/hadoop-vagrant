@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-[[ -z "${1-}" ]] && echo "Usage: up.sh <num-vms-to-launch> [<JDK tarball file>] [<Ambari-repo-url>] 
+[[ -z "${1-}" ]] && echo "Usage: up.sh <num-vms-to-launch> [<JDK tarball file>] [<Ambari-repo-url>]
 
   JDK tarball or RPM file is optional. If not provided, then OpenJDK8
   will be installed.
@@ -17,6 +17,13 @@ DEFAULT_JDK_RPMS="java-1.8.0-openjdk-devel-1.8.0.191.b12-0.el7_5.x86_64.rpm"
 RPM_BASE_URL=http://mirror.centos.org/centos/7/updates/x86_64/Packages
 JDK_INSTALLER_FILES=${2-}
 
+# Ensure the vagrant-vbguest plugin is installed.
+# See http://kvz.io/blog/2013/01/16/vagrant-tip-keep-virtualbox-guest-additions-in-sync/
+#
+if ! vagrant plugin list | grep -qi vagrant-vbguest; then
+  vagrant plugin install vagrant-vbguest
+fi
+
 # No JDK package provided on the command-line. Download the default.
 #
 if [[ -z "${JDK_INSTALLER_FILES}" ]]; then
@@ -26,13 +33,8 @@ if [[ -z "${JDK_INSTALLER_FILES}" ]]; then
     done
     JDK_INSTALLER_FILES="${DEFAULT_JDK_RPMS}"
 else
-    echo "I will install the JDK using ${JDK_INSTALLER_FILES}"    
+    echo "I will install the JDK using ${JDK_INSTALLER_FILES}."
 fi
-
-# Ensure the vagrant-vbguest plugin is installed.
-# See http://kvz.io/blog/2013/01/16/vagrant-tip-keep-virtualbox-guest-additions-in-sync/
-#
-vagrant plugin install vagrant-vbguest
 
 # Start the VMs, setting environment variables to locate JDK RPMs and
 # Ambari repo URL.
