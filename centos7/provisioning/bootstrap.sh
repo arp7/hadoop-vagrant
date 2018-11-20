@@ -44,7 +44,7 @@ for i in ${JDK_INSTALLER_FILES}; do
         echo "Installing RPM file ${i}..."
         yum install -y "${i}"
         ln -sf /usr/lib/jvm/java /usr/java/latest
-    elif echo ${i} | grep -qEi '(\.tar\.gz|\.tgz|\.tar)$'; then
+    elif echo "${i}" | grep -qEi '(\.tar\.gz|\.tgz|\.tar)$'; then
         # Tarball install. Following instructions from
         # https://www.server-world.info/en/note?os=CentOS_7&p=jdk11&f=2
         #
@@ -54,6 +54,7 @@ for i in ${JDK_INSTALLER_FILES}; do
         # This handles both .tar.gz and .tar with a single command.
         tar xf "${i}" --directory /usr/java/vagrant_installed/ --strip-components=1
         ln -sf /usr/java/vagrant_installed/ /usr/java/latest
+        # shellcheck disable=SC2016
         echo 'export JAVA_HOME=/usr/java/latest; export PATH=${PATH}:${JAVA_HOME}/bin' > /etc/profile.d/jdk.sh
     else
         echo "Unrecognized installer type ${i}. Installer should be an RPM or Tarball file."

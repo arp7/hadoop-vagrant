@@ -39,10 +39,10 @@ fi
 # Start the VMs, setting environment variables to locate JDK RPMs and
 # Ambari repo URL.
 #
-for i in $(seq -f '%03.3g' 1 $1); do
+for i in $(seq -f '%03.3g' 1 "$1"); do
     echo "Launching VM n${i}..."
     JDK_INSTALLER_FILES="${JDK_INSTALLER_FILES}" \
         AMBARI_REPO_URL="${AMBARI_REPO}" \
-        vagrant up --provider virtualbox n${i}
+        vagrant up --provider virtualbox "n${i}"
 done
 
