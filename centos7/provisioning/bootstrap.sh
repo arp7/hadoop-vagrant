@@ -39,10 +39,11 @@ for i in ${JDK_INSTALLER_FILES}; do
     [[ ! -f "${i}" ]] && echo "Invalid JDK file ${i}" && exit 1
 
     if echo "${i}" | grep -qi '\.rpm$'; then
-        # RPM install. Simple case.
+        # RPM install. Simple case. Use localinstall so 'nothing to do'
+        # is not treated as an error
         #
         echo "Installing RPM file ${i}..."
-        yum install -y "${i}"
+        yum localinstall -y "${i}"
         ln -sf /usr/lib/jvm/java /usr/java/latest
     elif echo "${i}" | grep -qEi '(\.tar\.gz|\.tgz|\.tar)$'; then
         # Tarball install. Following instructions from
